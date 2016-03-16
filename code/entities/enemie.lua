@@ -17,7 +17,7 @@ end
 function enemieMove(dt)
 	for i,v in ipairs(enemies) do
 		for a,j in ipairs(player) do
-			if v.color ~= selected and invincible == false then
+			if v.color ~= selected then
 				if j.x > v.x then
 				    v.x = v.x + v.speed * dt
 				end
@@ -29,19 +29,6 @@ function enemieMove(dt)
 				end
 				if j.y < v.y then
 				    v.y = v.y - v.speed * dt 
-				end
-			else
-				if j.x > v.x then
-				    v.x = v.x - v.speed * dt
-				end
-				if j.x < v.x then
-					v.x = v.x + v.speed * dt
-				end
-				if j.y > v.y then
-				    v.y = v.y - v.speed * dt
-				end
-				if j.y < v.y then
-				    v.y = v.y + v.speed * dt 
 				end
 			end
 		end

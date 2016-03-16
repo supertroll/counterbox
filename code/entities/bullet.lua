@@ -5,11 +5,12 @@ bullets = {}
 
 
 function bulletSpawn(x,y,dir)
-	table.insert(bullets, {x = x, y = y, dir = dir,})
+	table.insert(bullets, {x = x, y = y, dir = dir,width = bimg:getWidth(),height = bimg:getHeight(), R = R })
 end
 
 function bulletLoad()
-	
+	bimg = love.graphics.newImage("arrow1.png")
+	b2img = love.graphics.newImage("arrow2.png")
 end
 
 function bulletMove(dt)
@@ -31,33 +32,50 @@ end
 
 function bulletDraw()
 	for i,v in ipairs(bullets) do
-		love.graphics.rectangle("fill", v.x, v.y, 10, 10)
+		if v.dir == "up" then
+		    v.R = -1.6
+		elseif v.dir == "down" then
+			v.R = 1.6
+		elseif v.dir == "left" then
+		    v.R = 3.2
+		else
+			v.R = 0
+		end
+		love.graphics.setColor(255, 255, 255)
+		bimg:setFilter("nearest")
+		b2img:setFilter("nearest")
+		if blvl == 1 then
+			love.graphics.draw(bimg, v.x, v.y,v.R,2,2)
+		end
+		if blvl == 2 then
+		    love.graphics.draw(b2img, v.x, v.y,v.R,2,2)
+		end
 	end
 end
 
 function shoot(skey)
 	for i,v in ipairs(player) do
-		sx = v.x + v.width/2 - 5
-		sy = v.y + v.height/2 - 5
-		if skey == "left" then
-			bulletSpawn(sx,sy,"left")
-		end
-		if skey == "right" then
-		    bulletSpawn(sx,sy,"right")
-		end
-		if skey == "up" then
-		    bulletSpawn(sx,sy,"up")
-		end
-		if skey == "down" then
-		    bulletSpawn(sx,sy,"down")
-		end
+			sx = v.x + v.width/2
+			sy = v.y + v.height/2
+			if skey == "left" then
+				bulletSpawn(sx,sy,"left")
+			end
+			if skey == "right" then
+			    bulletSpawn(sx,sy,"right")
+			end
+			if skey == "up" then
+			    bulletSpawn(sx,sy,"up")
+			end
+			if skey == "down" then
+		    	bulletSpawn(sx,sy,"down")
+			end
 	end
 end
 
 function bulletEnd()
 	for i,v in ipairs(bullets) do
-		if v.x >= swidth - 10 or v.x <= 0 or
-		 v.y >= sheight - 10 or v.y <= 0 then
+		if v.x >= swidth - v.width or v.x <= 0 or
+		 v.y >= sheight - v.height or v.y <= 0 then
 		    table.remove(bullets, i)
 		end
 	end

@@ -6,12 +6,13 @@ nxc = false
 yc = false
 nyc = false
 
-function playerSpawn(x,y,width,height,speed, health)
-	table.insert(player,{x = x, y = y, speed = speed, width = width, height = height, health = health, original = health, healths = swidth, hit = false, damaged = false})
+function playerSpawn(x,y,speed, health)
+	table.insert(player,{x = x, y = y, speed = speed, width = pimg:getWidth(), height = p2img:getHeight(), health = health, original = health, healths = swidth, hit = false, damaged = false})
 end
 
 function playerLoad()
-	
+	pimg = love.graphics.newImage("player.png")
+	p2img = love.graphics.newImage("player2.png")
 end
 
 function playerMove(dt)
@@ -62,7 +63,12 @@ end
 
 function playerDraw()
 	for i,v in ipairs(player) do
-		love.graphics.rectangle("fill", v.x, v.y, v.width, v.height)
+		if plvl == 1 then
+			love.graphics.draw(pimg, v.x, v.y)
+		end
+		if plvl == 2 then
+			love.graphics.draw(p2img, v.x, v.y)
+		end
 	end
 end
 

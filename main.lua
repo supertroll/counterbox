@@ -12,8 +12,12 @@ enemieSpeed = 200
 enemieHealth = 2
 selected = 1
 invincible = false
+plvl = 1
+blvl = 1
 
 function love.load()
+	bulletLoad()
+	playerLoad()
 	loadVodka()
 	height = love.graphics.getHeight()
 	width = love.graphics.getWidth()
@@ -35,6 +39,9 @@ function love.update(dt)
 		bulletKill()
 		PHealthBar()
 		vodkaStuff()
+	end
+	if gamestate == "skill" then
+
 	end
 	if gameState == "menu" then
 		newButton("start",0,0,100,50)
@@ -58,12 +65,15 @@ function love.draw()
 	if gameState == "menu" then
 		drawButtons()
 	end
+	if gamestate == "skill" then
+
+	end
 end
 
 function love.keypressed(key)
 	if gameState == "playing" then
 		if key == "p" then
-			playerSpawn(0,0,30,30,200,10)
+			playerSpawn(0,0,500,10)
 		end
 		if key == "e" then
 			selected = 0
@@ -88,6 +98,10 @@ function love.keypressed(key)
 		end
 		if key == "v" then
 			spawnVodka()
+		end
+		if key == "x" then
+			plvl = 2
+			blvl = 2
 		end
 		shoot(key)
 	end
