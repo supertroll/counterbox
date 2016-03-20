@@ -5,5 +5,3 @@ spawn health(vodka) = v
 spawn enemies = b(red), n(green), m(blue)
 lvl up = x
 you can only lvl up once
-
-please press the "download zip" button so i know how many downloaded it.
