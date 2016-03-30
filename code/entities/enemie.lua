@@ -10,8 +10,7 @@ eheight = 50
 function enemieSpawn(health, speed, color)
 	X = love.math.random(swidth)
 	Y = love.math.random(sheight)
-	table.insert(enemies, {x = X, y = Y, health = health, original = health
-						   , speed = speed, shot = false, HBar = HBar, color = color})
+	table.insert(enemies, {x = X, y = Y, health = health, original = health, speed = speed, shot = false, HBar = HBar, color = color})
 end
 
 function enemieMove(dt)
@@ -44,7 +43,6 @@ function enemieKill()
 				v.y <= j.y and
 				v.y + eheight >= j.y and
 				invincible == false then
-				    table.remove(enemies, i)
 				    j.health = j.health - 1
 				    v.shot = true
 				    j.damaged = true
@@ -71,15 +69,19 @@ end
 
 function healthBar()
 	for i,v in ipairs(enemies) do
+		if v.health == nil then
+			v.health = 2
+			v.original = 2
+		end
 		if v.health == v.original then
 		    v.HBar = ewidth
 		end
 		if v.shot == true then
 			v.HBar = v.HBar - ewidth/v.original
-			v.health = v.health - 1
+			v.health = v.health - bulletDamage
 			v.shot = false
 		end
-		if v.health == 0 then
+		if v.health <= 0 then
 		    table.remove(enemies, i)
 		end
 	end
@@ -88,6 +90,9 @@ end
 function HBDraw()
 	for i,v in ipairs(enemies) do
 		love.graphics.setColor(255, 255, 255)
+		if v.HBar == nil then
+			v.HBar = 2
+		end
 		love.graphics.rectangle("fill", v.x, v.y + eheight/2-5, v.HBar, 5)
 	end
 end

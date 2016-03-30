@@ -2,7 +2,7 @@ buttons = {}
 
 
 function newButton(text,x,y,width,height)
-	table.insert(buttons, {text = text, x = x, y = y, width = width, height = height, selected = selected})
+	table.insert(buttons, {text = text, x = x, y = y, width = width, height = height, selected = selected, pushable = true})
 end
 
 function drawButtons()
@@ -33,11 +33,25 @@ end
 
 function press()
 	for i,v in ipairs(buttons) do
-		if v.selected == true and down and v.text == "start" then
-			gameState = "playing"
+		if v.selected == true and down and gameState ~= "skill" then
+			if v.text == "start" then
+				gameState = "playing"
+			end
+			if v.text == "quit" then
+				love.event.push("quit")
+			end
 		end
-		if v.selected == true and down and v.text == "quit" then
-			love.event.push("quit")
+		if v.selected == true and down then
+			if v.text == "arrow:" then
+				blvlup = true
+			else
+				blvlup = false
+			end
+			if v.text =="player:" then
+				plvlup = true
+			else
+				plvlup = false
+			end
 		end
 	end
 end

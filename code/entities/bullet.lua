@@ -4,8 +4,8 @@ require "code.entities.player"
 bullets = {}
 
 
-function bulletSpawn(x,y,dir)
-	table.insert(bullets, {x = x, y = y, dir = dir,width = bimg:getWidth(),height = bimg:getHeight(), R = R })
+function bulletSpawn(x,y,dir,speed)
+	table.insert(bullets, {x = x, y = y, dir = dir,width = bimg:getWidth(),height = bimg:getHeight(), R = R, speed = speed })
 end
 
 function bulletLoad()
@@ -16,16 +16,16 @@ end
 function bulletMove(dt)
 	for i,v in ipairs(bullets) do
 		if v.dir == "left" then
-			v.x = v.x - bulletSpeed * dt
+			v.x = v.x - v.speed * dt
 		end
 		if v.dir == "right" then
-			v.x = v.x + bulletSpeed * dt
+			v.x = v.x + v.speed * dt
 		end
 		if v.dir == "up" then
-			v.y = v.y - bulletSpeed * dt
+			v.y = v.y - v.speed * dt
 		end
 		if v.dir == "down" then
-			v.y = v.y + bulletSpeed * dt
+			v.y = v.y + v.speed * dt
 		end
 	end
 end
@@ -44,10 +44,10 @@ function bulletDraw()
 		love.graphics.setColor(255, 255, 255)
 		bimg:setFilter("nearest")
 		b2img:setFilter("nearest")
-		if blvl == 1 then
+		if blvl >= 1 and blvl <= 9 then
 			love.graphics.draw(bimg, v.x, v.y,v.R,2,2)
 		end
-		if blvl == 2 then
+		if blvl >= 10 then
 		    love.graphics.draw(b2img, v.x, v.y,v.R,2,2)
 		end
 	end
@@ -58,16 +58,16 @@ function shoot(skey)
 			sx = v.x + v.width/2
 			sy = v.y + v.height/2
 			if skey == "left" then
-				bulletSpawn(sx,sy,"left")
+				bulletSpawn(sx, sy, "left", bulletSpeed)
 			end
 			if skey == "right" then
-			    bulletSpawn(sx,sy,"right")
+			    bulletSpawn(sx, sy, "right", bulletSpeed)
 			end
 			if skey == "up" then
-			    bulletSpawn(sx,sy,"up")
+			    bulletSpawn(sx, sy, "up", bulletSpeed)
 			end
 			if skey == "down" then
-		    	bulletSpawn(sx,sy,"down")
+		    	bulletSpawn(sx, sy, "down",bulletSpeed)
 			end
 	end
 end
@@ -87,8 +87,9 @@ function bulletKill()
 			if v.x <= a.x and
 			v.x + ewidth >= a.x and
 			v.y <= a.y and
-			v.y + eheight >= a.y then
+			v.y + eheight >= a.y and selected ~= v.color then
 			    v.shot = true
+			    score = score + 1
 			    table.remove(bullets, j)
 			end
 		end

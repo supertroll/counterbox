@@ -63,10 +63,10 @@ end
 
 function playerDraw()
 	for i,v in ipairs(player) do
-		if plvl == 1 then
+		if plvl >= 1 then
 			love.graphics.draw(pimg, v.x, v.y)
 		end
-		if plvl == 2 then
+		if plvl >= 10 then
 			love.graphics.draw(p2img, v.x, v.y)
 		end
 	end
