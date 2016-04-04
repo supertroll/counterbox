@@ -9,8 +9,8 @@ function bulletSpawn(x,y,dir,speed)
 end
 
 function bulletLoad()
-	bimg = love.graphics.newImage("arrow1.png")
-	b2img = love.graphics.newImage("arrow2.png")
+	bimg = love.graphics.newImage("projectile.png")
+	b2img = love.graphics.newImage("projectile2.png")
 end
 
 function bulletMove(dt)
@@ -89,7 +89,6 @@ function bulletKill()
 			v.y <= a.y and
 			v.y + eheight >= a.y and selected ~= v.color then
 			    v.shot = true
-			    score = score + 1
 			    table.remove(bullets, j)
 			end
 		end

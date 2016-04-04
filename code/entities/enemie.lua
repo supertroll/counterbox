@@ -77,12 +77,13 @@ function healthBar()
 		    v.HBar = ewidth
 		end
 		if v.shot == true then
-			v.HBar = v.HBar - ewidth/v.original
+			v.HBar = v.HBar - ewidth/v.original*bulletDamage
 			v.health = v.health - bulletDamage
 			v.shot = false
 		end
 		if v.health <= 0 then
 		    table.remove(enemies, i)
+		    score = score + 1
 		end
 	end
 end

@@ -77,6 +77,7 @@ function PHealthBar()
 			v.healths = width/v.original*v.health
 		if v.health == 0 then
 		    table.remove(player, i)
+		    score = score - 10
 		end
 		if v.health > v.original then
 		    v.health = v.original

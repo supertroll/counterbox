@@ -42,7 +42,7 @@ function press()
 			end
 		end
 		if v.selected == true and down then
-			if v.text == "arrow:" then
+			if v.text == "projectile:" then
 				blvlup = true
 			else
 				blvlup = false
