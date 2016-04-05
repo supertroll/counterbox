@@ -63,10 +63,10 @@ end
 
 function playerDraw()
 	for i,v in ipairs(player) do
-		if plvl == 1 then
+		if plvl >= 1 then
 			love.graphics.draw(pimg, v.x, v.y)
 		end
-		if plvl == 2 then
+		if plvl >= 10 then
 			love.graphics.draw(p2img, v.x, v.y)
 		end
 	end
@@ -77,6 +77,7 @@ function PHealthBar()
 			v.healths = width/v.original*v.health
 		if v.health == 0 then
 		    table.remove(player, i)
+		    score = score - 10
 		end
 		if v.health > v.original then
 		    v.health = v.original
